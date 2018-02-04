@@ -30,7 +30,7 @@ io.on('connect', function(socket) {
   var questionNum = 0; // keep count of question, used for IF condition.
   socket.on('loaded', function(){// we wait until the client has loaded and contacted us that it is ready to go.
 
-  socket.emit('answer',"Hey, Hello I am \"___*-\" a simple chat bot example."); //We start with the introduction;
+  socket.emit('answer',"Hey, Hello I am Jason, your couples therapy bot!"); //We start with the introduction;
   setTimeout(timedQuestion, 2500, socket,"What is your Name?"); // Wait a moment and respond with a question.
 
 });
@@ -53,46 +53,47 @@ function bot(data,socket,questionNum) {
   if (questionNum == 0) {
   answer= 'Hello ' + input + ' :-)';// output response
   waitTime =2000;
-  question = 'How old are you?';			    	// load next question
+  question = 'what is your partner\'s name?';			    	// load next question
   }
   else if (questionNum == 1) {
-  answer= 'Really ' + input + ' Years old? So that means you where born in: ' + (2018-parseInt(input));// output response
+  answer= input + '?  That\'s a lovely name.' ;// output response
   waitTime =2000;
-  question = 'Where do you live?';			    	// load next question
+  question =  'Where did ' + input  + ' and you meet?';			    	// load next question
   }
   else if (questionNum == 2) {
   answer= ' Cool! I have never been to ' + input+'.';
   waitTime =2000;
-  question = 'Whats your favorite Color?';			    	// load next question
+  question = 'How many years have you been together?';			    	// load next question
   }
   else if (questionNum == 3) {
-  answer= 'Ok, ' + input+' it is.';
-  socket.emit('changeBG',input.toLowerCase());
+  answer= input + ' years is longer than any relationship I have had!';
   waitTime = 2000;
-  question = 'Can you still read the font?';			    	// load next question
+  question = 'Do you want to break up with them?';			    	// load next question
   }
   else if (questionNum == 4) {
-    if(input.toLowerCase()==='yes'|| input===1){
-      answer = 'Perfect!';
-      waitTime =2000;
-      question = 'Whats your favorite place?';
-    }
-    else if(input.toLowerCase()==='no'|| input===0){
-        socket.emit('changeFont','white'); /// we really should look up the inverse of what we said befor.
-        answer='How about now?'
-        question='';
-        waitTime =0;
-        questionNum--; // Here we go back in the question number this can end up in a loop
-    }else{
-      answer=' I did not understand you. Can you please answer with simply with yes or no.'
-      question='';
-      questionNum--;
-      waitTime =0;
-    }
+      if(input.toLowerCase()==='yes'|| input===1) {
+          answer = 'I am sorry you two want to split up.  It happens!  Hopefully you can maintain being friends, but I totally get it if not.  I can recommend a good divorce lawyer, if you need.';
+          waitTime = 10000;
+          question = 'Would you like that?';
+      }
+      
+      else if(input.toLowerCase()==='no'|| input===0) {
+          answer = 'That is great! You two should totally get married! I can totally recommend a great wedding planner.  The time is now, do it!';
+          waitTime = 10000;
+          question = 'Would you like that?';
+      }
+      
+      else {
+          answer = 'I did not quite understand that, can say yes or no?';
+          question = '';
+          waitTime = 0;
+          questionNum--;
+      }
+      
   // load next question
   }
   else{
-    answer= 'I have nothing more to say!';// output response
+    answer= 'That is all I can do for you, best of luck!';// output response
     waitTime =0;
     question = '';
   }
